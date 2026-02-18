@@ -1,5 +1,6 @@
 const { ipcRenderer } = require('electron');
 
+
 // UI要素の取得
 const chatContainer = document.getElementById('chat-container');
 const userInput = document.getElementById('userInput');
@@ -10,6 +11,7 @@ const saveKeyBtn = document.getElementById('save-key-btn');
 const settingsBtn = document.getElementById('settings-btn');
 const cancelKeyBtn = document.getElementById('cancel-key-btn');
 const authError = document.getElementById('auth-error');
+const modelSelect = document.getElementById('model-select');
 
 // --- 認証・設定関連 ---
 
@@ -17,6 +19,12 @@ async function checkAuth() {
   const isAuth = await ipcRenderer.invoke('check-auth');
   if (!isAuth) {
     authModal.style.display = 'flex';
+  } else {
+    // ★ 追加：認証OKなら、現在のモデルを取得してプルダウンに反映
+    const currentModel = await ipcRenderer.invoke('get-current-model');
+    if (currentModel) {
+      modelSelect.value = currentModel;
+    }
   }
 }
 
@@ -57,6 +65,22 @@ saveKeyBtn.addEventListener('click', async () => {
     authError.style.display = 'block';
     saveKeyBtn.disabled = false;
     saveKeyBtn.textContent = "保存して開始";
+  }
+});
+
+// プルダウン変更時のイベントリスナー
+modelSelect.addEventListener('change', async (e) => {
+  const selectedModel = e.target.value;
+  
+  // main.js の 'change-model' ハンドラを呼び出す
+  const result = await ipcRenderer.invoke('change-model', selectedModel);
+  
+  if (result.error) {
+    console.error("モデル切り替えエラー:", result.error);
+    alert(result.error); // 必要に応じてUIでエラー表示
+  } else {
+    console.log(`モデルを ${selectedModel} に切り替えました`);
+    // UI上で「切り替え完了」的なトーストを出してもいいかも
   }
 });
 
