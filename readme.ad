@@ -1,0 +1,64 @@
+garunekogemini 1.0.0
+
+かんきょう
+
+Mac OS X〜
+Apple Silicon以降
+ネット環境必須
+
+とくちょう
+
+・Gemini3.0Pro搭載
+※無課金の方のためのFreeもあります。
+
+つかいかた
+
+・Google AI StudioでAPIキーを取得
+・FreeかProのどちらかを起動
+・APIキーを入力
+※APIが不安な方はソースコードも同梱してますのでご自身でbuildしてください。
+※WindowsもElectronでbuildすれば使えます。buildはノーサポート、自己責任でお願いします。
+・普通にチャットしてください。画像生成は先頭に/imgを入れてください。
+
+Freeなのでサポートはありませんが、バグがありましたら、
+garuneko@gmail.comまでメールをお願いします。
+
+各自でビルドする手順（Windows / Linux 対応）
+このアプリは Electron で作られています。
+自分の環境（OS）に合わせて、以下の手順で実行ファイルを作成できます。
+
+1. 準備するもの
+
+Node.js (LTS推奨): nodejs.org からインストールしてください。
+
+Google Gemini API Key: Google AI Studio で取得したキーが必要です。
+
+2. セットアップ
+
+フォルダ内でターミナル（またはコマンドプロンプト）を開き、以下のコマンドを順番に実行します。
+
+# 依存ライブラリのインストール
+npm install
+
+# 開発モードで動作確認（ビルド前に一度動かしてみる）
+npm start
+3. ビルド実行
+
+自分のOSに合わせてコマンドを選んでください。
+
+Windows用 (.exe)
+
+Bash
+npm run dist -- --win
+
+Linux用 (AppImage)
+
+Bash
+npm run dist -- --linux
+
+Mac用 (.app)
+
+Bash
+npm run dist -- --mac -c.mac.identity=null
+
+ビルドが終わると、dist フォルダの中に実行ファイル（インストーラーやアプリ本体）が出来上がります。

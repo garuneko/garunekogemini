@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Gemini Client for garuneko</title>
+<style>
+    body { font-family: sans-serif; display: flex; flex-direction: column; height: 100vh; margin: 0; background: #f0f2f5; position: relative; }
+    #chat-container { flex: 1; overflow-y: auto; padding: 20px; display: flex; flex-direction: column; gap: 10px; }
+    .message { padding: 10px 15px; border-radius: 15px; max-width: 80%; line-height: 1.5; word-wrap: break-word; }
+    .user { align-self: flex-end; background: #007aff; color: white; }
+    .ai { align-self: flex-start; background: #e4e6eb; color: #333; }
+    #input-area { padding: 20px; background: white; border-top: 1px solid #ddd; display: flex; gap: 10px; }
+    #userInput { flex: 1; padding: 10px; border: 1px solid #ccc; border-radius: 5px; }
+    #sendBtn { padding: 10px 20px; background: #007aff; color: white; border: none; border-radius: 5px; cursor: pointer; }
+
+    /* Markdown用の装飾 */
+    .ai pre { background: #282c34; color: #abb2bf; padding: 10px; border-radius: 8px; overflow-x: auto; margin: 8px 0; }
+    .ai code { font-family: monospace; background: rgba(0,0,0,0.05); padding: 2px 4px; border-radius: 4px; }
+    
+    /* 設定ボタン ⚙️ */
+    #settings-btn { position: fixed; top: 10px; right: 10px; background: rgba(255,255,255,0.8); border: 1px solid #ddd; border-radius: 50%; width: 36px; height: 36px; cursor: pointer; z-index: 100; font-size: 18px; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+</style>
+</head>
+<body>
+
+<div id="auth-modal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.8); z-index:9999; flex-direction:column; align-items:center; justify-content:center;">
+  <div style="background:#fff; padding:25px; border-radius:12px; width:85%; max-width:400px; text-align:center; box-shadow: 0 10px 25px rgba(0,0,0,0.2);">
+    <h3 style="color:#333; margin-top:0;">API Key Setting</h3>
+    <input type="password" id="api-key-input" placeholder="Google APIキーを入力" style="width:90%; box-sizing:border-box; padding:12px; margin:15px 0; border:1px solid #ccc; border-radius:4px; font-size: 14px;">
+    
+    <p id="auth-error" style="color: #d93025; font-size: 12px; margin: -5px 0 15px 0; display: none;"></p>
+    
+    <button id="save-key-btn" style="width:90%; padding:12px; background:#007bff; color:#fff; border:none; border-radius:4px; cursor:pointer; font-weight:bold;">保存して開始</button>
+    <button id="cancel-key-btn" style="width:90%; padding:8px; background:transparent; color:#666; border:none; margin-top:8px; cursor:pointer; font-size:12px;">キャンセル</button>
+  </div>
+</div>
+
+<div id="chat-container"></div>
+
+<div id="input-area">
+    <input type="text" id="userInput" placeholder="メッセージを入力...">
+    <button id="sendBtn">送信</button>
+</div>
+
+<button id="settings-btn" title="設定">⚙️</button>
+
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<script src="renderer.js"></script>
+</body>
+</html>
