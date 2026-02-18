@@ -45,7 +45,7 @@ app.whenReady().then(createWindow);
 
 ipcMain.handle('check-auth', () => !!genAI);
 
-iipcMain.handle('save-api-key', async (event, key) => {
+ipcMain.handle('save-api-key', async (event, key) => {
   try {
     const testAI = new GoogleGenerativeAI(key);
 
@@ -53,7 +53,7 @@ iipcMain.handle('save-api-key', async (event, key) => {
     const isFree = process.env.MODEL_TYPE === 'free' || appName.includes('Free');
     const chatModelName = isFree ? "gemini-2.5-flash" : "gemini-3-pro-preview";
 
-    // テスト通信）
+    // テスト通信
     const testModel = testAI.getGenerativeModel({ model: chatModelName });
     await testModel.generateContent("test");
 
@@ -62,10 +62,9 @@ iipcMain.handle('save-api-key', async (event, key) => {
     return { success: true };
   } catch (error) {
     // エラーの中身（503など）
-        return { error: `エラー: ${error.message}` };
+    return { error: `エラー: ${error.message}` };
   }
 });
-
 ipcMain.handle('send-to-gemini', async (event, text) => {
   if (!chatSession) return { error: "APIキーが設定されていません。" };
   try {
