@@ -108,6 +108,19 @@ ipcMain.handle('get-history-for-ui', async () => {
   }
 });
 
+ipcMain.handle('clear-history', () => {
+  // 1. 履歴ファイルを空の配列で上書き
+  saveHistory([]);
+  
+  // 2. 現在のチャットセッションをまっさらな状態で再開
+  if (genAI) {
+    const config = loadConfig();
+    const model = genAI.getGenerativeModel({ model: config.model || "gemini-2.5-flash" });
+    chatSession = model.startChat({ history: [] });
+  }
+  
+  return { success: true };
+});
 ipcMain.handle('change-model', async (event, newModelName) => {
   const config = loadConfig();
   config.model = newModelName;
