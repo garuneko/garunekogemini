@@ -12,12 +12,13 @@ function initAI(apiKey) {
   try {
     genAI = new GoogleGenerativeAI(apiKey);
     
-    // 環境変数があればそれを使う、なければデフォルト（Pro）
-    const chatModelName = process.env.MODEL_TYPE === 'free' ? "gemini-2.5-flash" : "gemini-3-pro-preview";
-    
+    // 環境変数、またはアプリ名に "Free" が含まれているかで判定
+    const appName = app.getName();
+    const isFree = process.env.MODEL_TYPE === 'free' || appName.includes('Free');
+    const chatModelName = isFree ? "gemini-2.5-flash" : "gemini-3-pro-preview";
     const model = genAI.getGenerativeModel({ model: chatModelName });
     chatSession = model.startChat({ history: [] });
-    console.log(`Using model: ${chatModelName}`);
+    console.log(`Mode: ${isFree ? 'FREE' : 'PRO'} (${chatModelName})`);
   } catch (e) {
     console.error("Initialization Error:", e);
   }
