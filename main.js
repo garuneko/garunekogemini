@@ -13,8 +13,7 @@ function initAI(apiKey) {
     genAI = new GoogleGenerativeAI(apiKey);
     
     // 環境変数、またはアプリ名に "Free" が含まれているかで判定
-    const appName = app.getName();
-    const isFree = process.env.MODEL_TYPE === 'free' || appName.includes('Free');
+    const isFree = process.env.MODEL_TYPE === 'free' || process.execPath.includes('Free') || app.getName().includes('Free');
     const chatModelName = isFree ? "gemini-2.5-flash" : "gemini-3-pro-preview";
     const model = genAI.getGenerativeModel({ model: chatModelName });
     chatSession = model.startChat({ history: [] });
@@ -49,9 +48,9 @@ ipcMain.handle('save-api-key', async (event, key) => {
   try {
     const testAI = new GoogleGenerativeAI(key);
 
+    const isFree = process.env.MODEL_TYPE === 'free' || process.execPath.includes('Free') || app.getName().includes('Free');
+const chatModelName = isFree ? "gemini-2.5-flash" : "gemini-3-pro-preview";
     const appName = app.getName();
-    const isFree = process.env.MODEL_TYPE === 'free' || appName.includes('Free');
-    const chatModelName = isFree ? "gemini-2.5-flash" : "gemini-3-pro-preview";
 
     // テスト通信
     const testModel = testAI.getGenerativeModel({ model: chatModelName });
