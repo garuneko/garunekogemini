@@ -19,13 +19,9 @@ Macの強力なセキュリティ機能（Gatekeeper）により、アプリを�
 
 1. ダウンロードした `.dmg` を開き、中にあるアプリを **「アプリケーション」フォルダ** にドラッグ＆ドロップしてコピーします。
 2. Macの **「ターミナル」** アプリを開きます。（右上の虫眼鏡マークから「ターミナル」と検索すると出てきます）
-3. ご利用のバージョンに合わせて、以下のコマンドをコピーし、ターミナルに貼り付けて `Enter` キーを押します。
+3. 以下のコマンドをコピーし、ターミナルに貼り付けて `Enter` キーを押します(v2.0.0より)
 
-**▼ Free版の場合:**
-`sudo xattr -rd com.apple.quarantine /Applications/GarunekoGemini-Free.app`
-
-**▼ Pro版の場合:**
-`sudo xattr -rd com.apple.quarantine /Applications/GarunekoGemini-Pro.app`
+`sudo xattr -rd com.apple.quarantine /Applications/GarunekoGemini.app`
 
 4. Macのログインパスワードを求められるので入力して `Enter` を押します。（※セキュリティ上、文字を入力しても画面には何も表示されませんが、正しく入力されています）
 5. エラーが出ずに次の行に進めば成功です！アプリケーションフォルダから、アプリをダブルクリックして起動してください。
