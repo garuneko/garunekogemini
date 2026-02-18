@@ -13,6 +13,9 @@ const cancelKeyBtn = document.getElementById('cancel-key-btn');
 const authError = document.getElementById('auth-error');
 const modelSelect = document.getElementById('model-select');
 const clearHistoryBtn = document.getElementById('clear-history-btn');
+const confirmModal = document.getElementById('confirm-modal');
+const confirmOkBtn = document.getElementById('confirm-ok-btn');
+const confirmCancelBtn = document.getElementById('confirm-cancel-btn');
 
 // --- 認証・設定関連 ---
 
@@ -94,9 +97,16 @@ modelSelect.addEventListener('change', async (e) => {
   }
 });
 
-clearHistoryBtn.addEventListener('click', async () => {
-  const isOk = confirm("会話履歴をリセットして新しいチャットを開始しますか？\n（過去のやり取りは消去されます）");
-  if (!isOk) return;
+clearHistoryBtn.addEventListener('click', () => {
+  confirmModal.style.display = 'flex';
+});
+
+confirmCancelBtn.addEventListener('click', () => {
+  confirmModal.style.display = 'none';
+});
+
+confirmOkBtn.addEventListener('click', async () => {
+  confirmModal.style.display = 'none'; 
 
   const result = await ipcRenderer.invoke('clear-history');
   if (result.success) {
