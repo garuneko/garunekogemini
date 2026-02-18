@@ -12,6 +12,7 @@ const settingsBtn = document.getElementById('settings-btn');
 const cancelKeyBtn = document.getElementById('cancel-key-btn');
 const authError = document.getElementById('auth-error');
 const modelSelect = document.getElementById('model-select');
+const clearHistoryBtn = document.getElementById('clear-history-btn');
 
 // --- 認証・設定関連 ---
 
@@ -90,6 +91,17 @@ modelSelect.addEventListener('change', async (e) => {
   } else {
     console.log(`モデルを ${selectedModel} に切り替えました`);
     // UI上で「切り替え完了」的なトーストを出してもいいかも
+  }
+});
+
+clearHistoryBtn.addEventListener('click', async () => {
+  const isOk = confirm("会話履歴をリセットして新しいチャットを開始しますか？\n（過去のやり取りは消去されます）");
+  if (!isOk) return;
+
+  const result = await ipcRenderer.invoke('clear-history');
+  if (result.success) {
+    chatContainer.innerHTML = '';
+    appendMessage('ai', '新しいチャットを開始しました！');
   }
 });
 
