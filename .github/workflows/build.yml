@@ -26,15 +26,14 @@ jobs:
           cache: 'npm'
 
       - name: Install dependencies
-        # package-lock.jsonがあるなら ci の方が高速で安全
-        run: npm ci
+        run: npm install
 
       - name: Build Pro and Free
         run: npm run build-all
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      # Windowsの場合だけ実行：exeをアップロード
+      # Windows用リリース
       - name: Release for Windows
         if: matrix.os == 'windows-latest'
         uses: softprops/action-gh-release@v2
@@ -43,7 +42,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      # Macの場合だけ実行：dmgとzipをアップロード
+      # Mac用リリース
       - name: Release for macOS
         if: matrix.os == 'macos-latest'
         uses: softprops/action-gh-release@v2
