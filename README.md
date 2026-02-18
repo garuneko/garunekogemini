@@ -1,0 +1,2 @@
+# garunekogemini
+GeminiのAPIを叩いて文章や画像を生成するクライアントアプリです。
