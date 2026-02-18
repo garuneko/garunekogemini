@@ -6,13 +6,11 @@
   "main": "main.js",
   "scripts": {
     "start": "electron .",
-    "dist": "electron-builder -c.mac.identity=null",
-    "dist:free": "electron-builder --config.productName=garunekoGemini-Free --config.win.icon=icon.png --config.mac.icon=icon.png -c.mac.identity=null",
-    "build-all": "npm run dist && npm run dist:free"
+    "dist": "electron-builder -c.mac.identity=null"
   },
   "build": {
     "appId": "com.garuneko.gemini.client",
-    "productName": "garunekoGemini-Pro",
+    "productName": "GarunekoGemini",
     "directories": { "output": "dist" },
     "mac": {
       "category": "public.app-category.developer-tools",
