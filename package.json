@@ -6,18 +6,23 @@
   "main": "main.js",
   "scripts": {
     "start": "electron .",
-    "dist": "electron-builder -c.productName=GarunekoGemini-Pro -c.win.icon=iconpro.ico -c.mac.icon=iconpro.icns -c.mac.identity=null",
-    "dist:free": "electron-builder -c.productName=GarunekoGemini-Free -c.win.icon=icon.ico -c.mac.icon=icon.icns -c.mac.identity=null",
+    "dist": "electron-builder -c.mac.identity=null",
+    "dist:free": "electron-builder --config.productName=garunekoGemini-Free --config.win.icon=icon.ico --config.mac.icon=icon.icns -c.mac.identity=null",
     "build-all": "npm run dist && npm run dist:free"
   },
   "build": {
     "appId": "com.garuneko.gemini.client",
+    "productName": "garunekoGemini-Pro",
     "directories": { "output": "dist" },
     "mac": {
       "category": "public.app-category.developer-tools",
-      "target": ["dmg", "zip"]
+      "target": ["dmg", "zip"],
+      "icon": "iconpro.icns"
     },
-    "win": { "target": "nsis" }
+    "win": {
+      "target": "nsis",
+      "icon": "iconpro.ico"
+    }
   },
   "dependencies": {
     "@google/generative-ai": "^0.24.1"
