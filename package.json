@@ -2,12 +2,13 @@
   "name": "gemini-client-garuneko",
   "version": "1.0.0",
   "main": "main.js",
-  "scripts": {
-    "start": "electron .",
-    "dist": "electron-builder --mac -c.productName=garunekogemini-Pro",
-    "dist:free": "electron-builder --mac -c.productName=garunekogemini-Free"
-  },
-  "build": {
+"scripts": {
+ 　　 "start": "electron .",
+ 　　 "dist": "electron-builder -c.productName=GarunekoGemini-Pro",
+ 　　 "dist:free": "electron-builder -c.productName=GarunekoGemini-Free",
+　　  "build-all": "npm run dist && npm run dist:free"
+},  
+"build": {
     "appId": "com.garuneko.gemini.client",
     "directories": {
       "output": "dist"
