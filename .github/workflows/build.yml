@@ -3,15 +3,16 @@ name: Build and Release All Versions
 on:
   push:
     tags:
-      - 'v*' # v1.0.0 などのタグを付けたときに発動
+      - 'v*'
+
+permissions:
+  contents: write  
 
 jobs:
   release:
     strategy:
       matrix:
-        # WindowsとMac、両方のサーバーを起動
         os: [windows-latest, macos-latest]
-    
     runs-on: ${{ matrix.os }}
 
     steps:
@@ -28,7 +29,6 @@ jobs:
         run: npm install
 
       - name: Build Pro and Free
-        # ここで両方のエディションをビルド
         run: npm run build-all
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
