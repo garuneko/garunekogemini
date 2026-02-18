@@ -7,7 +7,7 @@
   "scripts": {
     "start": "electron .",
     "dist": "electron-builder -c.mac.identity=null",
-    "dist:free": "electron-builder --config.productName=garunekoGemini-Free --config.win.icon=icon.ico --config.mac.icon=icon.icns -c.mac.identity=null",
+    "dist:free": "electron-builder --config.productName=garunekoGemini-Free --config.win.icon=icon.png --config.mac.icon=icon.png -c.mac.identity=null",
     "build-all": "npm run dist && npm run dist:free"
   },
   "build": {
@@ -17,7 +17,7 @@
     "mac": {
       "category": "public.app-category.developer-tools",
       "target": ["dmg", "zip"],
-      "icon": "iconpro.icns"
+      "icon": "iconpro.png"
     },
     "win": {
       "target": "nsis",
