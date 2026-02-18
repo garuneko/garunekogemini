@@ -1,25 +1,23 @@
 {
   "name": "gemini-client-garuneko",
   "version": "1.0.0",
+  "description": "Gemini Client for garuneko",
+  "author": "garuneko",
   "main": "main.js",
-"scripts": {
- 　　 "start": "electron .",
- 　　 "dist": "electron-builder -c.productName=GarunekoGemini-Pro",
- 　　 "dist:free": "electron-builder -c.productName=GarunekoGemini-Free",
-　　  "build-all": "npm run dist && npm run dist:free"
-},  
-"build": {
+  "scripts": {
+    "start": "electron .",
+    "dist": "electron-builder -c.productName=GarunekoGemini-Pro -c.mac.identity=null",
+    "dist:free": "electron-builder -c.productName=GarunekoGemini-Free -c.mac.identity=null",
+    "build-all": "npm run dist && npm run dist:free"
+  },
+  "build": {
     "appId": "com.garuneko.gemini.client",
-    "directories": {
-      "output": "dist"
-    },
+    "directories": { "output": "dist" },
     "mac": {
       "category": "public.app-category.developer-tools",
       "target": ["dmg", "zip"]
     },
-    "win": {
-      "target": "nsis"
-    }
+    "win": { "target": "nsis" }
   },
   "dependencies": {
     "@google/generative-ai": "^0.24.1"
