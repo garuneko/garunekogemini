@@ -26,25 +26,23 @@ jobs:
           cache: 'npm'
 
       - name: Install dependencies
-        run: npm install
+        run: npm ci
 
       - name: Build Pro and Free
         run: npm run build-all
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      # Windows用リリース
       - name: Release for Windows
-        if: matrix.os == 'windows-latest'
+        if: matrix.os == 'windows-latest' && startsWith(github.ref, 'refs/tags/')
         uses: softprops/action-gh-release@v2
         with:
           files: dist/*.exe
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      # Mac用リリース
       - name: Release for macOS
-        if: matrix.os == 'macos-latest'
+        if: matrix.os == 'macos-latest' && startsWith(github.ref, 'refs/tags/')
         uses: softprops/action-gh-release@v2
         with:
           files: |
