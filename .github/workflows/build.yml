@@ -26,7 +26,6 @@ jobs:
           cache: 'npm'
 
       - name: Install dependencies
-        # ここは npm install が正解です！
         run: npm install
 
       - name: Build Pro and Free
