@@ -20,10 +20,19 @@ async function checkAuth() {
   if (!isAuth) {
     authModal.style.display = 'flex';
   } else {
-    // ★ 追加：認証OKなら、現在のモデルを取得してプルダウンに反映
+    // 1. 現在のモデルを取得してプルダウンに反映
     const currentModel = await ipcRenderer.invoke('get-current-model');
     if (currentModel) {
       modelSelect.value = currentModel;
+    }
+
+    // ★ 2. 過去の会話履歴を取得してUIに復元
+    const history = await ipcRenderer.invoke('get-history-for-ui');
+    if (history && history.length > 0) {
+      history.forEach(msg => {
+        // main.js側で role: 'user' または 'ai', text: 中身 に整形してあるのでそのまま渡す
+        appendMessage(msg.role, msg.text);
+      });
     }
   }
 }
