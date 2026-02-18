@@ -16,8 +16,10 @@
     "mac": {
       "category": "public.app-category.developer-tools",
       "target": ["dmg", "zip"]
+      "icon": "build/icon.icns"
     },
     "win": { "target": "nsis" }
+    "icon": "build/icon.ico"
   },
   "dependencies": {
     "@google/generative-ai": "^0.24.1"
