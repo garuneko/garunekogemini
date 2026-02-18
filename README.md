@@ -43,7 +43,7 @@ sudo xattr -rd com.apple.quarantine "/Applications/GarunekoGemini.app"
 - **Windows**: Windows 10以降
 - **macOS**: macOS 11 (Big Sur) 以降
 
-- ## AIの回答に関する注意事項（制限事項）
+## AIの回答に関する注意事項（制限事項）
 Gemini APIの仕様や一時的な不具合により、AIが現在の日付を誤認する（例：「私の情報は2024年までです」と過去の時点を答える）ケースが確認されています。
 これはAPI提供元（Google側）のシステム上の現象であり、本アプリ（GarunekoGemini）のバグではありません。
 もし回答の時系列がおかしいと感じた場合は、質問文（プロンプト）に「現在は2026年です」と前提を補足して送信するか、時間を置いて再度お試しください。
