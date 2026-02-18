@@ -45,16 +45,15 @@ app.whenReady().then(createWindow);
 
 ipcMain.handle('check-auth', () => !!genAI);
 
-ipcMain.handle('save-api-key', async (event, key) => {
+iipcMain.handle('save-api-key', async (event, key) => {
   try {
     const testAI = new GoogleGenerativeAI(key);
 
-    // initAI() と同じ判定にする
-    const chatModelName =
-      process.env.MODEL_TYPE === 'free'
-        ? "gemini-2.5-flash"
-        : "gemini-3-pro-preview";
+    const appName = app.getName();
+    const isFree = process.env.MODEL_TYPE === 'free' || appName.includes('Free');
+    const chatModelName = isFree ? "gemini-2.5-flash" : "gemini-3-pro-preview";
 
+    // テスト通信）
     const testModel = testAI.getGenerativeModel({ model: chatModelName });
     await testModel.generateContent("test");
 
@@ -62,8 +61,8 @@ ipcMain.handle('save-api-key', async (event, key) => {
     initAI(key);
     return { success: true };
   } catch (error) {
-    // ここは error.message を返す方が原因切り分けが楽（公開するなら出し方は工夫）
-    return { error: "APIキーが無効か、通信エラーです。" };
+    // エラーの中身（503など）
+        return { error: `エラー: ${error.message}` };
   }
 });
 
